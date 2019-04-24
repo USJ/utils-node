@@ -1,5 +1,5 @@
 {
-  "name": "@usj/usj-node-buildkit",
+  "name": "@usj/utils-node",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
