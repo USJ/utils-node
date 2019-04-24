@@ -40,7 +40,7 @@ glob(
   },
   (err, files) => {
     files.forEach(file => {
-      let key = `${distDir}/${file}`
+      let key = `${prefix}/${file}`
       let filePath = `${distDir}/${file}`
 
       console.log(`Bucket: ${bucket} Key: ${key} FilePath: ${filePath}`)
