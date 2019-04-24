@@ -40,12 +40,17 @@ glob(
   },
   (err, files) => {
     files.forEach(file => {
+      let key = `${distDir}/${file}`
+      let filePath = `${distDir}/${file}`
+
+      console.log(`Bucket: ${bucket} Key: ${key} FilePath: ${filePath}`)
+
       minioClient.fPutObject(
         bucket,
-        prefix + file,
-        `${distDir}/${file}`,
+        key,
+        filePath,
         {
-          'Content-Type': mime.lookup(file) || 'application/octet-stream'
+          'Content-Type': mime.lookup(filePath) || 'application/octet-stream'
         },
         (err, result) => {
           if (err) return console.log(err)
