@@ -12,10 +12,11 @@ program
   .version('0.0.0')
   .option('-b, --bucket [bucket]', 'Which bucket deploy to ?', 'assets')
   .option('-p, --prefix [prefix]', 'Prefix key', 'assets')
+  .option('-d, --working-dir [working-dir]', 'Working directory', null)
   .parse(process.argv)
 
-const bucket = program.bucket
-const prefix = program.prefix
+const bucket = program['bucket']
+const prefix = program['prefix']
 
 var minioClient = new Minio.Client({
   endPoint: process.env.MINIO_ENDPOINT || '',
@@ -24,9 +25,12 @@ var minioClient = new Minio.Client({
   secretKey: process.env.MINIO_SECRET_KEY || 'none'
 })
 
-console.log(`Working on ${path.dirname(require.main.filename)}`)
+const defaultWorkDir = process.cwd()
+const workingDir = program['working-dir'] || defaultWorkDir
 
-const distDir = path.dirname(require.main.filename) + '/dist'
+console.log(`Working on ${workingDir}`)
+
+const distDir = workingDir + '/dist'
 const pattern = `**/*.+(js|css|html|png|jpeg|jpg|map|ico)`
 
 glob(
